@@ -1,24 +1,24 @@
-const Clarifai = require("clarifai");
+// const Clarifai = require("clarifai");
 
-const app =
-  process.env.NODE_ENV === "production"
-    ? new Clarifai.App({
-        apiKey: process.env.CLARIFAI_API_KEY
-      })
-    : new Clarifai.App({
-        apiKey: "replace with an API key"
-      });
+// const app =
+//   process.env.NODE_ENV === "production"
+//     ? new Clarifai.App({
+//         apiKey: process.env.CLARIFAI_API_KEY
+//       })
+//     : new Clarifai.App({
+//         apiKey: "replace with an API key"
+//       });
 
-const handleApiCall = () => (req, res) => {
-  app.models.predict(Clarifai.FACE_DETECT_MODEL, req.body.input).then(
-    function(response) {
-      res.json(response);
-    },
-    function(err) {
-      res.status(400).json("Ooops something went wrong with the Clarifai API");
-    }
-  );
-};
+// const handleApiCall = () => (req, res) => {
+//   app.models.predict(Clarifai.FACE_DETECT_MODEL, req.body.input).then(
+//     function(response) {
+//       res.json(response);
+//     },
+//     function(err) {
+//       res.status(400).json("Ooops something went wrong with the Clarifai API");
+//     }
+//   );
+// };
 
 const handleImage = db => (req, res) => {
   const { id, count } = req.body;
@@ -65,8 +65,6 @@ const handleImage = db => (req, res) => {
 // };
 
 module.exports = {
-  handleImage,
-  handleApiCall
-  // test,
-  // simpletest
+  handleImage
+  // handleApiCall
 };

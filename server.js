@@ -9,7 +9,7 @@ const signin = require("./controllers/signin");
 const profile = require("./controllers/profile");
 const image = require("./controllers/image");
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 const db =
   process.env.NODE_ENV === "production"
@@ -25,9 +25,10 @@ const db =
         connection: {
           host: "127.0.0.1",
           user: "postgres",
-          password: "test",
-          database: "smart-brain"
-        }
+          password: "testpassword",
+          database: "deals"
+        },
+        debug: true
       });
 
 const app = express();
@@ -54,7 +55,7 @@ app.get("/", (req, res) => {
 app.post("/signin", signin.handleSignin(db, bcrypt));
 app.post("/register", register.handleRegister(db, bcrypt));
 app.get("/profile/:userId", profile.handleProfileGet(db));
-app.put("/imageurl", image.handleApiCall());
+// app.put("/imageurl", image.handleApiCall());
 app.put("/image", image.handleImage(db));
 // app.post("/test", image.test());
 // app.post("/simpletest", image.test());

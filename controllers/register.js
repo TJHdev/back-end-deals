@@ -1,7 +1,7 @@
 const handleRegister = (db, bcrypt) => (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!name || !email || !password) {
+  if (!username || !email || !password) {
     res.status(400).json("Error: must provide all fields");
   } else {
     const hash = bcrypt.hashSync(password);
@@ -19,7 +19,7 @@ const handleRegister = (db, bcrypt) => (req, res) => {
             .returning("*")
             .insert({
               email: loginEmail[0],
-              name: name,
+              username: username,
               joined: new Date()
             })
             .then(user => {
@@ -27,9 +27,12 @@ const handleRegister = (db, bcrypt) => (req, res) => {
             });
         })
         .then(trx.commit)
-        .catch(trx.rollback);
+        .catch(err => {
+          console.log(err);
+          trx.rollback();
+        });
     }).catch(err => {
-      res.status(400).json("Enable to register");
+      res.status(400).json("Unable to register");
     });
   }
 };
