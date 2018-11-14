@@ -31,6 +31,17 @@ const db =
         debug: true
       });
 
+const whiltelist = ["http://example1.com", "http://example2.com"];
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whiltelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
